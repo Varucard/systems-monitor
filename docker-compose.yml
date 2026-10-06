@@ -1,0 +1,19 @@
+# Monitor de disponibilidad de todos los sistemas, con avisos por Telegram.
+# Panel en http://localhost:3100 — ver README.md.
+services:
+  kuma:
+    image: louislam/uptime-kuma:2
+    container_name: monitor-kuma
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3100:3001"
+    volumes:
+      # Volumen de Docker y no carpeta de Windows: la base SQLite se corrompe sobre NTFS.
+      - kuma-datos:/app/data
+    environment:
+      TZ: America/Argentina/Buenos_Aires
+      # Saltea el asistente de base de datos: en la v2 se cuelga al pasar al servidor principal.
+      UPTIME_KUMA_DB_TYPE: sqlite
+
+volumes:
+  kuma-datos:
