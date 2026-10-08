@@ -76,8 +76,8 @@ No arranca con el `docker compose up -d` de siempre. Para activarlo:
    - Intervalo de latido: **3900 s** (la hora del chequeo más un margen)
    - Reintentos: **0** (`ike-scan` ya reintenta dentro de cada chequeo)
 2. Copiar `.env.ejemplo` a `.env` y completar la dirección de la VPN y la URL del Push,
-   cambiando `localhost:3100` por `kuma:3001` (la sonda le habla a Kuma por la red de
-   Docker). El `.env` no va a git.
+   pegada tal cual la muestra el panel: la sonda toma solo el token y le habla a Kuma por la
+   red de Docker (`kuma:3001`). El `.env` no va a git.
 3. Levantarlo:
 
    ```bash

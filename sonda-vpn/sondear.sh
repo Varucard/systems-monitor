@@ -7,8 +7,11 @@
 : "${VPN_PUSH_URL:?falta VPN_PUSH_URL en .env}"
 INTERVALO="${VPN_INTERVALO:-3600}"
 
-# La URL que copia el panel ya trae ?status=up&msg=OK&ping=: se descarta y se arma la propia.
-PUSH="${VPN_PUSH_URL%%\?*}"
+# De la URL que copia el panel solo sirve el token: trae 127.0.0.1:3100, que dentro de este
+# contenedor no es Kuma, y un ?status=up&msg=OK&ping= que se reemplaza por el propio.
+TOKEN="${VPN_PUSH_URL#*/api/push/}"
+TOKEN="${TOKEN%%\?*}"
+PUSH="http://kuma:3001/api/push/$TOKEN"
 
 while true; do
   if ike-scan -q "$VPN_DIRECCION" | grep -qE 'Handshake returned|Notify message'; then
