@@ -1,2 +1,5 @@
 # Respaldos del volumen: incluyen el token del bot de Telegram
 *.tgz
+
+# Dirección de la VPN y token del monitor Push
+.env

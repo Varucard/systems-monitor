@@ -15,5 +15,19 @@ services:
       # Saltea el asistente de base de datos: en la v2 se cuelga al pasar al servidor principal.
       UPTIME_KUMA_DB_TYPE: sqlite
 
+  # Opcional: chequeo de la VPN L2TP/IPsec. Solo arranca con --profile vpn (ver README.md).
+  sonda-vpn:
+    build: ./sonda-vpn
+    container_name: monitor-sonda-vpn
+    restart: unless-stopped
+    profiles: [vpn]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      TZ: America/Argentina/Buenos_Aires
+    depends_on:
+      - kuma
+
 volumes:
   kuma-datos:
